@@ -31,7 +31,7 @@ export default {
 
 	body{
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
-	  	-webkit-font-smoothing: antialiased;
+	  	-webkit-font-smoothing: antialiased; 
 	  	-moz-osx-font-smoothing: grayscale;
 		font-weight:300;
 		margin:0;
@@ -110,7 +110,7 @@ export default {
 		z-index:100;
 	}
 	.content{
-		padding:70px 0px 10px 0px;
+		padding:82px 0px 10px 0px;
 		position:absolute;
 		width:99%;
 	}
@@ -118,27 +118,28 @@ export default {
 	i::before{
 		color: $orange;
 	}
+
 	.dg-main-content{
-		background-color:$grey;
-		border-radius:0;
+		background-color:$grey!important;
+		border-radius:0!important;
 	}
 	.dg-content-body{
-		color:$light-grey;
-		border-bottom-color:$dark-grey;
+		color:$light-grey!important;
+		border-bottom-color:$dark-grey!important;
 	}
 	.dg-content{
-		font-size:1.2rem;
-		text-align:center;
+		font-size:1.2rem!important;
+		text-align:center!important;
 	}
 	.dg-btn--ok{
-		background-color:$green;
-		color:$dark-grey;
-		border:2px solid $green;
+		background-color:$green!important;
+		color:$dark-grey!important;
+		border:2px solid $green!important;
 	}
 	.dg-btn--cancel{
-		background-color:$grey;
-		color:$light-grey;
-		border:2px solid $light-grey;
+		background-color:$grey!important;
+		color:$light-grey!important;
+		border:2px solid $light-grey!important;
 	}
 
 </style>

@@ -4,8 +4,10 @@
 
 ## Built with
 [Vuejs](https://vuejs.org/) - Using the [Browserify](http://browserify.org/) client template.
+
 [node-sass](https://github.com/sass/node-sass) - For sass styles compiling.
- [Vueify](https://github.com/vuejs/vueify) - .vue template compiler.
+
+[Vueify](https://github.com/vuejs/vueify) - .vue template compiler.
  
 ## Build Setup
 

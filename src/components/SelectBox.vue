@@ -1,6 +1,6 @@
 <template>
 	<div v-on-clickaway="hideList">
-		<input type="text" v-model="filterString" class="form-field" v-on:keyup="startSearch()">
+		<input type="text" v-model="filterString" :placeholder="placeholder" class="form-field" v-on:keyup="startSearch()">
 		<ul v-show="searching" >
 			<li v-for="item in listItems" v-on:click="selectItem(item)">{{item.name}}</li>
 		</ul>
@@ -9,11 +9,12 @@
 
 <script type="text/javascript">
 
-	import { queryCountries, findCountry } from '../services/countriesService';
+	import { findCountry } from '../services/countriesService';
+	import { contains } from '../tools.js'
 	import { mixin as clickaway } from 'vue-clickaway';
 
 	export default {
-		props:['listArray','filterField','default'],
+		props:['listArray','filterField','default','placeholder'],
 		mixins:[ clickaway ],
 		data(){
 			return {
@@ -28,12 +29,8 @@
 	    },
 		watch:{
 			filterString: function(){
-				self = this;
 				if(this.filterString.length > 2 && this.searching){
-					this.listItems = this.listArray.filter((item)=>{
-						return item[self.filterField].toLowerCase().indexOf(self.filterString.toLowerCase()) > -1;
-					})
-
+					this.listItems = this.filterList(this.listArray)
 				} else if (this.filterString.length < 3){
 					this.listItems = []
 					this.$emit('item-selected',"");
@@ -61,6 +58,12 @@
 				if(this.searching){
 					this.filterString = "";
 				}
+			},
+			filterList(listArray){
+				self = this;
+				return listArray.filter(function(item){
+					return contains(item[self.filterField],self.filterString);
+				})
 			}
 		}
 	}

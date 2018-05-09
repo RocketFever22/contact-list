@@ -1,3 +1,4 @@
+import { contains } from '../tools.js'
 var countries = require('country-list')();
 
 function listCountries (){
@@ -14,7 +15,7 @@ function findCountry(country_code){
 
 function queryCountries(country_string){
 	return countriesArray().filter((item)=>{
-		return item.name.indexOf(country_string) !== -1;
+		return contains(item.name,country_string);
 	})
 }
 

@@ -1,22 +1,22 @@
 <template>
 	<section class="content">
 		<form>
-			<label>First name</label>
+			<label>First name *</label>
 			<span class="error-message" v-show="errors.first_name.length">{{errors.first_name}}</span>
 			<input  type="text" v-model="contact.first_name" class="form-field">
 
-			<label>Last Name</label>
+			<label>Last Name *</label>
 			<span class="error-message" v-show="errors.last_name.length">{{errors.last_name}}</span>
 			<input type="text" v-model="contact.last_name" class="form-field">
 
-			<label>Email</label>
-			<span class="error-message" v-show="errors.email.length">{{errors.email}}</span>
-			<input type="text" v-model="contact.email" class="form-field">
+			<label>Email *</label>
+			<span class="error-message" v-show="errors.email.length" >{{errors.email}}</span>
+			<input type="text" v-model="contact.email" class="form-field" placeholder="example@email.com">
 
-			<label>Country</label>
+			<label>Country *</label>
 			<span class="error-message" v-show="errors.country.length">{{errors.country}}</span>
 			<select-box v-bind:list-array="countries" v-on:item-selected="setCountry" 
-				filter-field="name" v-bind:default="contact.country"></select-box>
+				filter-field="name" v-bind:default="contact.country" v-bind:placeholder="'Type at least 3 letters'"></select-box>
 
 			<div v-if="!isCreateForm()" class="buttons">
 				<button v-on:click="saveChanges()" class="success">Update</button>
@@ -33,6 +33,7 @@
 <script type="text/javascript">
 	import { getContact, contactInstance, updateContact, createContact, deleteContact } from '../services/contactsService'
 	import { countriesArray, findCountry } from '../services/countriesService'
+	import { validateEmail } from '../tools.js'
 	import SelectBox from './SelectBox.vue'
 
 	export default {
@@ -93,10 +94,6 @@
 	  	setCountry(country_code){
 	  		this.contact.country = country_code;
 	  	},
-	    validEmail:function(email) {
-	      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	      return re.test(email);
-	    },
 	  	validate(){
 	  		this.resetErrors();
 	  		let errors = false;
@@ -118,7 +115,7 @@
 	  			errors = true;
 	  		}
 	  		if(fields.email.length > 0){
-	  			if(!this.validEmail(fields.email)){
+	  			if(!validateEmail(fields.email)){
 	  				this.errors.email = 'Unexpected email format';
 		  			errors = true;
 		  		}

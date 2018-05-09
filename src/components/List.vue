@@ -12,6 +12,7 @@
 
 <script type="text/javascript">
 	import { getList } from '../services/contactsService'
+	import { compare, contains } from '../tools.js'
 	import Filter from './Filter.vue'
 	import ContactCard from './layouts/ContactCard.vue'
 
@@ -27,25 +28,17 @@
 	    }
 	  },
 	  computed:{
-	  	sortedList: function() {
-		    function compare(a, b) {
-		      if (a.first_name.toLowerCase() < b.first_name.toLowerCase())
-		        return -1;
-		      if (a.first_name.toLowerCase() > b.first_name.toLowerCase())
-		        return 1;
-		      return 0;
-		    }
-
+	  	sortedList() {
 		    return this.contacts.sort(compare);
-		  }
+		}
 	  },
 	  methods:{
-	  	applyFilter(new_value){
+	  	applyFilter(new_value) {
 	  		this.filterString = new_value;
 	  	},
-	  	isVisible(contact){
-	  		let fullName = `${contact.first_name} ${contact.last_name}`.toLowerCase();
-	  		return fullName.indexOf(this.filterString.toLowerCase()) > -1;
+	  	isVisible(contact) {
+	  		let fullName = `${contact.first_name} ${contact.last_name}`;
+	  		return contains(fullName, this.filterString);
 	  	}
 	  },
 	  components: {

@@ -1,0 +1,20 @@
+// The following line loads the standalone build of Vue instead of the runtime-only build,
+// so you don't have to do: import Vue from 'vue/dist/vue'
+// This is done with the browser options. For the config, see package.json
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import VuejsDialog from "vuejs-dialog"
+
+let dialogConfig = {
+	okText: 'Yes',
+	cancelText: 'No'
+}
+
+Vue.use(VuejsDialog, dialogConfig);
+
+new Vue({ // eslint-disable-line no-new
+  el: '#app',
+  router,
+  render: (h) => h(App)
+})
